@@ -1,89 +1,197 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1100" viewBox="0 0 1600 1100" role="img" aria-labelledby="title desc">
-  <title id="title">保险条款问答：数据、模型与规则的分工</title>
-  <desc id="desc">官方条款按完整责任分支切分并保存原文位置，建立关键词和向量索引。用户问题经过有原话约束的改写、混合检索和重排、必要证据补齐，再生成草稿。程序检查与模型复核通过后显示答案和原文出处；可修复的首次程序校验错误最多重新生成一次。</desc>
-  <defs>
-    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,1 L8,5 L0,9" fill="none" stroke="#64748b" stroke-width="1.5"/></marker>
-    <style>
-      text{font-family:'Noto Sans CJK SC','Microsoft YaHei',sans-serif;fill:#182c43}
-      .title{font-size:38px;font-weight:700}.sub{font-size:22px;fill:#5a6c80}
-      .section{font-size:24px;font-weight:700}.head{font-size:25px;font-weight:700}
-      .body{font-size:21px}.small{font-size:19px;fill:#4c6076}
-      .box{stroke-width:1.5;rx:16}.rule{fill:#eef8f3;stroke:#90bfa9}.model{fill:#edf3ff;stroke:#91aedb}.data{fill:#f5f7fa;stroke:#b6c2d0}
-      .line{fill:none;stroke:#64748b;stroke-width:2.5;marker-end:url(#arrow)}
-    </style>
-  </defs>
-  <rect width="1600" height="1100" fill="#ffffff"/>
-  <text x="60" y="65" class="title">保险条款问答｜一页架构</text>
-  <text x="60" y="105" class="sub">Python 模块化单体 · 本地模型 · 原问可追溯 · 答案回查官方 PDF</text>
-  <rect x="1130" y="48" width="22" height="22" class="model box"/><text x="1165" y="68" class="body">模型处理语义</text>
-  <rect x="1340" y="48" width="22" height="22" class="rule box"/><text x="1375" y="68" class="body">程序约束边界</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1360" viewBox="0 0 1920 1360" role="img" aria-labelledby="title desc">
+<title id="title">保险条款问答系统架构</title>
+<desc id="desc">离线从官方PDF构建按条款分支切分的证据库和混合索引。在线经过意图分流、查询规划、混合检索、证据补齐、答案生成、程序校验和同模型复核，输出答案及PDF出处。程序直接处理常见问候并对信息不足提出必要追问。卡2运行意图、向量和重排模型，卡5独立运行Qwen3.5-27B，应用通过HTTP适配器调用模型。</desc>
+<defs>
+  <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M1 1 L8 4.5 L1 8" fill="none" stroke="#117C78" stroke-width="1.6" stroke-linejoin="round"/></marker>
+  <marker id="soft-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M1 1 L8 4.5 L1 8" fill="none" stroke="#7E8DA4" stroke-width="1.5" stroke-linejoin="round"/></marker>
+  <style>
+    text{font-family:'Noto Sans CJK SC','Microsoft YaHei',sans-serif;fill:#1C2E46}
+    .eyebrow{font-size:14px;font-weight:700;letter-spacing:2px;fill:#117C78}
+    .title{font-size:42px;font-weight:700;letter-spacing:1px}
+    .subtitle{font-size:20px;fill:#617188}
+    .section{font-size:22px;font-weight:700}
+    .head{font-size:24px;font-weight:700}
+    .body{font-size:19px}
+    .note{font-size:16px;fill:#66778D}
+    .path{font-size:14px;fill:#8490A3}
+    .flow{fill:none;stroke:#117C78;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;marker-end:url(#arrow)}
+    .soft{fill:none;stroke:#7E8DA4;stroke-width:1.9;stroke-dasharray:6 5;stroke-linejoin:round;marker-end:url(#soft-arrow)}
+  </style>
+</defs>
+<rect width="1920" height="1360" fill="#F5F7FB"/>
 
-  <text x="60" y="165" class="section">离线数据：按完整规则切分，保留出处</text>
-  <rect x="60" y="190" width="330" height="140" class="data box"/>
-  <text x="84" y="230" class="head">官方 PDF → 逐页原文</text>
-  <text x="84" y="267" class="body">来源 URL、文件哈希、物理页</text>
-  <text x="84" y="300" class="small">默认仅使用保险条款</text>
-  <path d="M390 260 H430" class="line"/>
-  <rect x="440" y="190" width="580" height="140" class="rule box"/>
-  <text x="464" y="230" class="head">章节／责任分支 → 证据库</text>
-  <text x="464" y="267" class="body">短节整段；复杂责任按人数、原因、时间拆分</text>
-  <text x="464" y="300" class="small">条件、定义、引用关系完整保留；绑定原文字符位置</text>
-  <path d="M1020 260 H1060" class="line"/>
-  <rect x="1070" y="190" width="470" height="140" class="data box"/>
-  <text x="1094" y="230" class="head">BM25 ＋ 向量索引</text>
-  <text x="1094" y="267" class="body">121 个检索单元 · 1024 维向量</text>
-  <text x="1094" y="300" class="small">索引绑定语料版本；不把评测答案入库</text>
-
-  <text x="60" y="390" class="section">在线问答：先明确目标，再检索与核对</text>
-  <rect x="60" y="420" width="200" height="175" class="data box"/>
-  <text x="82" y="460" class="head">① 用户输入</text>
-  <text x="82" y="499" class="body">网页／API／CLI</text>
-  <text x="82" y="535" class="body">原问＋用户历史</text>
-  <text x="82" y="570" class="small">常见寒暄直接回复</text>
-  <path d="M260 505 H290" class="line"/>
-  <rect x="300" y="420" width="280" height="175" class="model box"/>
-  <text x="324" y="460" class="head">② 意图与查询规划</text>
-  <text x="324" y="499" class="body">先分流身份／闲聊</text>
-  <text x="324" y="535" class="body">规则／模型规划保险目标</text>
-  <text x="324" y="570" class="small">保留原问；最多 3 条改写</text>
-  <path d="M580 505 H610" class="line"/>
-  <rect x="620" y="420" width="400" height="175" class="model box"/>
-  <text x="644" y="460" class="head">③ 混合检索与重排</text>
-  <text x="644" y="499" class="body">BM25／向量各取 20 条</text>
-  <text x="644" y="535" class="body">分组 RRF → 重排 → Top 8</text>
-  <text x="644" y="570" class="small">程序先过滤来源、按稳定 ID 去重</text>
-  <path d="M1020 505 H1050" class="line"/>
-  <rect x="1060" y="420" width="480" height="175" class="rule box"/>
-  <text x="1084" y="460" class="head">④ 补齐证据与必要追问</text>
-  <text x="1084" y="499" class="body">主条款＋条件＋定义＋原文出处</text>
-  <text x="1084" y="535" class="body">缺关键个人条件：每轮最多追问一个</text>
-  <text x="1084" y="570" class="small">完整组计数；不截断必要前提</text>
-  <path d="M1300 595 V635" class="line"/>
-
-  <rect x="1060" y="645" width="480" height="175" class="model box"/>
-  <text x="1084" y="685" class="head">⑤ 生成结构化草稿</text>
-  <text x="1084" y="724" class="body">按原问目标，只用当前证据</text>
-  <text x="1084" y="760" class="body">每条结论附条件、例外与引用 ID</text>
-  <text x="1084" y="795" class="small">个人精确金额与办理操作未开放</text>
-  <path d="M1060 730 H1030" class="line"/>
-  <rect x="620" y="645" width="400" height="175" class="rule box"/>
-  <text x="644" y="685" class="head">⑥ 校验 ＋ 独立请求复核</text>
-  <text x="644" y="724" class="body">程序：结构／出处／依赖／边界</text>
-  <text x="644" y="760" class="body">模型：原文支持性与目标覆盖</text>
-  <text x="644" y="795" class="small">同模型复核仍可能漏错，需离线评测</text>
-  <path d="M620 730 H590" class="line"/>
-  <rect x="60" y="645" width="520" height="175" class="data box"/>
-  <text x="84" y="685" class="head">⑦ 答案、出处与未完成目标</text>
-  <text x="84" y="724" class="body">验证后的正文 → 点击原文与 PDF 页</text>
-  <text x="84" y="760" class="body">区分完整回答、部分回答、追问与失败</text>
-  <text x="84" y="795" class="small">程序渲染出处；不能用引用存在代替答案正确</text>
-  <path d="M820 820 V870 H1300 V830" class="line" stroke-dasharray="8 6"/>
-  <rect x="885" y="848" width="360" height="40" rx="8" fill="#ffffff"/>
-  <text x="900" y="876" class="small">可修复的首次程序错误：最多修正一次</text>
-
-  <rect x="60" y="930" width="1480" height="120" rx="16" fill="#f5f7fa" stroke="#d4dce5"/>
-  <text x="84" y="970" class="head">模型部署与约束</text>
-  <text x="350" y="970" class="body">卡 2：意图 Qwen3-1.7B · 向量／重排 Qwen3-0.6B</text>
-  <text x="350" y="1010" class="body">卡 5：Qwen3.5-27B 规划／回答／复核 · 8192 上下文 · 整轮 90 秒</text>
-  <text x="84" y="1010" class="small">HTTP 适配器隔离模型接口</text>
+<text x="64" y="39" class="eyebrow" >INSURANCE QA / SYSTEM ARCHITECTURE</text>
+<text x="64" y="95" class="title" >保险条款问答 · 系统架构</text>
+<text x="64" y="133" class="subtitle" >Python 模块化单体 · 本地模型服务 · 版本化语料 · 原文出处可追溯</text>
+<rect x="1320" y="67" width="96.80000000000001" height="25" rx="7" fill="#E4F3ED" stroke="#E4F3ED"/>
+<text x="1329" y="85" style="font-size:14px;font-weight:600;fill:#1A7156">程序 / 规则</text>
+<rect x="1460" y="67" width="124.80000000000001" height="25" rx="7" fill="#E8EFFD" stroke="#E8EFFD"/>
+<text x="1469" y="85" style="font-size:14px;font-weight:600;fill:#385DA6">卡2 · 辅助模型</text>
+<rect x="1635" y="67" width="124.80000000000001" height="25" rx="7" fill="#EEEAFB" stroke="#EEEAFB"/>
+<text x="1644" y="85" style="font-size:14px;font-weight:600;fill:#6854A4">卡5 · 生成模型</text>
+<text x="1320" y="122" class="note" >实线：处理顺序     虚线：数据读取 / 提前返回</text>
+<text x="64" y="179" class="section" >01  离线数据构建</text>
+<text x="302" y="179" class="note" >条款结构驱动切分，原文与检索表示分别保存</text>
+<rect x="64" y="196" width="424" height="140" rx="16" fill="#EDF2F8" stroke="#DDE4ED"/>
+<text x="84" y="235" class="head" data-end-x="468" >官方公开PDF</text>
+<text x="84" y="271" class="body" data-end-x="468" >条款 · 产品说明书 · 数表</text>
+<text x="84" y="300" class="note" data-end-x="468" >登记官方URL与文件哈希</text>
+<text x="84" y="323" class="path" data-end-x="468" >data/raw/</text>
+<rect x="520" y="196" width="424" height="140" rx="16" fill="#EDF2F8" stroke="#DDE4ED"/>
+<text x="540" y="235" class="head" data-end-x="924" >逐页原文抽取</text>
+<text x="540" y="271" class="body" data-end-x="924" >pdftotext -layout 保留版面</text>
+<text x="540" y="300" class="note" data-end-x="924" >保存物理页码与完整文本</text>
+<text x="540" y="323" class="path" data-end-x="924" >data/pages/</text>
+<rect x="976" y="196" width="424" height="140" rx="16" fill="#EDF2F8" stroke="#DDE4ED"/>
+<text x="996" y="235" class="head" data-end-x="1380" >证据库与条款关系</text>
+<text x="996" y="271" class="body" data-end-x="1380" >短条款整节；复杂责任按分支切分</text>
+<text x="996" y="300" class="note" data-end-x="1380" >保存条件、定义、引用与字符位置</text>
+<text x="996" y="323" class="path" data-end-x="1380" >data/corpus/</text>
+<rect x="1432" y="196" width="424" height="140" rx="16" fill="#EDF2F8" stroke="#DDE4ED"/>
+<text x="1452" y="235" class="head" data-end-x="1836" >版本化混合索引</text>
+<text x="1452" y="271" class="body" data-end-x="1836" >BM25词频＋1024维文档向量</text>
+<text x="1452" y="300" class="note" data-end-x="1836" >Embedding生成向量；manifest绑定版本</text>
+<text x="1452" y="323" class="path" data-end-x="1836" >data/index/ · NumPy文件索引</text>
+<path d="M488 266 H513" class="flow"/>
+<path d="M944 266 H969" class="flow"/>
+<path d="M1400 266 H1425" class="flow"/>
+<path d="M1644 336 V407" class="soft"/>
+<rect x="1657" y="352" width="104" height="27" rx="5" fill="#F5F7FB" stroke="#F5F7FB"/>
+<text x="1665" y="372" class="note" >读取索引</text>
+<text x="64" y="385" class="section" >02  在线问答流程</text>
+<text x="302" y="385" class="note" >统一Pipeline编排；模型负责语义，程序约束来源、条件与引用</text>
+<rect x="64" y="414" width="424" height="198" rx="16" fill="#FFFFFF" stroke="#DDE4ED"/>
+<rect x="82" y="434" width="29" height="29" rx="9" fill="#E4F3ED" stroke="#E4F3ED"/>
+<text x="96.5" y="455" class="body" text-anchor="middle" style="font-size:17px;font-weight:700;fill:#117C78">1</text>
+<text x="122" y="457" class="head" data-end-x="468" >接入与会话</text>
+<rect x="84" y="472" width="46" height="25" rx="7" fill="#E4F3ED" stroke="#E4F3ED"/>
+<text x="93" y="490" style="font-size:14px;font-weight:600;fill:#1A7156">程序</text>
+<text x="84" y="524" class="body" data-end-x="468" >网页 / API / CLI → Pipeline.ask</text>
+<text x="84" y="553" class="body" data-end-x="468" >用户原话 · 待答追问 · 会话修订</text>
+<text x="84" y="582" class="body" data-end-x="468" >产品范围 / 并发 / 超时管理</text>
+<text x="84" y="602" class="path" data-end-x="468" >main.py · api.py · session.py</text>
+<rect x="520" y="414" width="424" height="198" rx="16" fill="#FFFFFF" stroke="#DDE4ED"/>
+<rect x="538" y="434" width="29" height="29" rx="9" fill="#E4F3ED" stroke="#E4F3ED"/>
+<text x="552.5" y="455" class="body" text-anchor="middle" style="font-size:17px;font-weight:700;fill:#117C78">2</text>
+<text x="578" y="457" class="head" data-end-x="924" >意图分流</text>
+<rect x="540" y="472" width="46" height="25" rx="7" fill="#E4F3ED" stroke="#E4F3ED"/>
+<text x="549" y="490" style="font-size:14px;font-weight:600;fill:#1A7156">程序</text>
+<rect x="594" y="472" width="96.80000000000001" height="25" rx="7" fill="#E8EFFD" stroke="#E8EFFD"/>
+<text x="603" y="490" style="font-size:14px;font-weight:600;fill:#385DA6">卡2 · 意图</text>
+<text x="540" y="524" class="body" data-end-x="924" >常见问候、身份询问：程序直接回复</text>
+<text x="540" y="553" class="body" data-end-x="924" >其他表达：模型判断业务与非业务</text>
+<text x="540" y="582" class="body" data-end-x="924" >未知或分类失败：继续查询规划</text>
+<text x="540" y="602" class="path" data-end-x="924" >pipeline.py · models/auxiliary.py</text>
+<rect x="976" y="414" width="424" height="198" rx="16" fill="#FFFFFF" stroke="#DDE4ED"/>
+<rect x="994" y="434" width="29" height="29" rx="9" fill="#E4F3ED" stroke="#E4F3ED"/>
+<text x="1008.5" y="455" class="body" text-anchor="middle" style="font-size:17px;font-weight:700;fill:#117C78">3</text>
+<text x="1034" y="457" class="head" data-end-x="1380" >查询规划</text>
+<rect x="996" y="472" width="46" height="25" rx="7" fill="#E4F3ED" stroke="#E4F3ED"/>
+<text x="1005" y="490" style="font-size:14px;font-weight:600;fill:#1A7156">程序</text>
+<rect x="1050" y="472" width="96.80000000000001" height="25" rx="7" fill="#EEEAFB" stroke="#EEEAFB"/>
+<text x="1059" y="490" style="font-size:14px;font-weight:600;fill:#6854A4">卡5 · 规划</text>
+<text x="996" y="524" class="body" data-end-x="1380" >拆目标 · 提取条件 · 理解追问与更正</text>
+<text x="996" y="553" class="body" data-end-x="1380" >保留原问，最多增加3条有效改写</text>
+<text x="996" y="582" class="body" data-end-x="1380" >引用校验；矛盾计划最多修复1次</text>
+<text x="996" y="602" class="path" data-end-x="1380" >query_plan.py · 简单单轮问题可规则规划</text>
+<rect x="1432" y="414" width="424" height="198" rx="16" fill="#FFFFFF" stroke="#DDE4ED"/>
+<rect x="1450" y="434" width="29" height="29" rx="9" fill="#E4F3ED" stroke="#E4F3ED"/>
+<text x="1464.5" y="455" class="body" text-anchor="middle" style="font-size:17px;font-weight:700;fill:#117C78">4</text>
+<text x="1490" y="457" class="head" data-end-x="1836" >混合检索与重排</text>
+<rect x="1452" y="472" width="46" height="25" rx="7" fill="#E4F3ED" stroke="#E4F3ED"/>
+<text x="1461" y="490" style="font-size:14px;font-weight:600;fill:#1A7156">程序</text>
+<rect x="1506" y="472" width="147.6" height="25" rx="7" fill="#E8EFFD" stroke="#E8EFFD"/>
+<text x="1515" y="490" style="font-size:14px;font-weight:600;fill:#385DA6">卡2 · 向量 / 重排</text>
+<text x="1452" y="524" class="body" data-end-x="1836" >来源过滤 → BM25 / 向量各取20条</text>
+<text x="1452" y="553" class="body" data-end-x="1836" >RRF融合＋ID去重 → 最多40个候选</text>
+<text x="1452" y="582" class="body" data-end-x="1836" >Reranker重排 → 选取Top 8</text>
+<text x="1452" y="602" class="path" data-end-x="1836" >retrieval.py · 原问与改写共同检索</text>
+<path d="M488 513 H513" class="flow"/>
+<path d="M944 513 H969" class="flow"/>
+<path d="M1400 513 H1425" class="flow"/>
+<path d="M1644 612 V740" class="flow"/>
+<rect x="520" y="648" width="880" height="59" rx="12" fill="#FFF8E9" stroke="#EADBB7"/>
+<text x="544" y="672" class="body" style="font-weight:700;fill:#936A22">快捷返回</text>
+<text x="650" y="672" class="body" data-end-x="1376" >非业务 → 直接回复    ｜    指代不清 → 先澄清</text>
+<text x="544" y="696" class="note" data-end-x="1376" >混合问题仍回答明确部分；回复与追问均由统一出口返回。</text>
+<path d="M732 612 V641" class="soft"/>
+<path d="M1188 612 V641" class="soft"/>
+<path d="M520 678 H276 V740" class="soft"/>
+<rect x="1432" y="748" width="424" height="198" rx="16" fill="#FFFFFF" stroke="#DDE4ED"/>
+<rect x="1450" y="768" width="29" height="29" rx="9" fill="#E4F3ED" stroke="#E4F3ED"/>
+<text x="1464.5" y="789" class="body" text-anchor="middle" style="font-size:17px;font-weight:700;fill:#117C78">5</text>
+<text x="1490" y="791" class="head" data-end-x="1836" >证据补齐与澄清</text>
+<rect x="1452" y="806" width="46" height="25" rx="7" fill="#E4F3ED" stroke="#E4F3ED"/>
+<text x="1461" y="824" style="font-size:14px;font-weight:600;fill:#1A7156">程序</text>
+<text x="1452" y="858" class="body" data-end-x="1836" >主条款＋必要条件＋定义＋明示引用</text>
+<text x="1452" y="887" class="body" data-end-x="1836" >从证据库补齐完整证据组与出处</text>
+<text x="1452" y="916" class="body" data-end-x="1836" >缺关键个人条件：每轮最多追问1项</text>
+<text x="1452" y="936" class="path" data-end-x="1836" >evidence.py · clarification.py</text>
+<rect x="976" y="748" width="424" height="198" rx="16" fill="#FFFFFF" stroke="#DDE4ED"/>
+<rect x="994" y="768" width="29" height="29" rx="9" fill="#E4F3ED" stroke="#E4F3ED"/>
+<text x="1008.5" y="789" class="body" text-anchor="middle" style="font-size:17px;font-weight:700;fill:#117C78">6</text>
+<text x="1034" y="791" class="head" data-end-x="1380" >答案生成</text>
+<rect x="996" y="806" width="96.80000000000001" height="25" rx="7" fill="#EEEAFB" stroke="#EEEAFB"/>
+<text x="1005" y="824" style="font-size:14px;font-weight:600;fill:#6854A4">卡5 · 生成</text>
+<text x="996" y="858" class="body" data-end-x="1380" >按真实token计数，装入完整证据组</text>
+<text x="996" y="887" class="body" data-end-x="1380" >只用当前证据生成结论与引用ID</text>
+<text x="996" y="916" class="body" data-end-x="1380" >窗口不足：整组省略并标记缺口</text>
+<text x="996" y="936" class="path" data-end-x="1380" >answer.py · 结构化答案草稿</text>
+<rect x="520" y="748" width="424" height="198" rx="16" fill="#FFFFFF" stroke="#DDE4ED"/>
+<rect x="538" y="768" width="29" height="29" rx="9" fill="#E4F3ED" stroke="#E4F3ED"/>
+<text x="552.5" y="789" class="body" text-anchor="middle" style="font-size:17px;font-weight:700;fill:#117C78">7</text>
+<text x="578" y="791" class="head" data-end-x="924" >校验与语义复核</text>
+<rect x="540" y="806" width="46" height="25" rx="7" fill="#E4F3ED" stroke="#E4F3ED"/>
+<text x="549" y="824" style="font-size:14px;font-weight:600;fill:#1A7156">程序</text>
+<rect x="594" y="806" width="96.80000000000001" height="25" rx="7" fill="#EEEAFB" stroke="#EEEAFB"/>
+<text x="603" y="824" style="font-size:14px;font-weight:600;fill:#6854A4">卡5 · 复核</text>
+<text x="540" y="858" class="body" data-end-x="924" >结构 / 出处 / 条件依赖 / 目标覆盖</text>
+<text x="540" y="887" class="body" data-end-x="924" >可修复的程序错误：最多修正1次</text>
+<text x="540" y="916" class="body" data-end-x="924" >同一27B另次复核，仍可能漏错</text>
+<text x="540" y="936" class="path" data-end-x="924" >answer.py · answer_validation.py · citations.py</text>
+<rect x="64" y="748" width="424" height="198" rx="16" fill="#FFFFFF" stroke="#DDE4ED"/>
+<rect x="82" y="768" width="29" height="29" rx="9" fill="#E4F3ED" stroke="#E4F3ED"/>
+<text x="96.5" y="789" class="body" text-anchor="middle" style="font-size:17px;font-weight:700;fill:#117C78">8</text>
+<text x="122" y="791" class="head" data-end-x="468" >回答与出处</text>
+<rect x="84" y="806" width="46" height="25" rx="7" fill="#E4F3ED" stroke="#E4F3ED"/>
+<text x="93" y="824" style="font-size:14px;font-weight:600;fill:#1A7156">程序</text>
+<text x="84" y="858" class="body" data-end-x="468" >答案 / 必要追问 / 未完成目标</text>
+<text x="84" y="887" class="body" data-end-x="468" >引用回链到官方PDF与物理页</text>
+<text x="84" y="916" class="body" data-end-x="468" >业务轮次成功后更新会话修订</text>
+<text x="84" y="936" class="path" data-end-x="468" >pipeline.py · 失败不推进会话修订</text>
+<path d="M1432 847 H1407" class="flow"/>
+<path d="M976 847 H951" class="flow"/>
+<path d="M520 847 H495" class="flow"/>
+<path d="M1644 946 V976 H276 V953" class="soft"/>
+<rect x="590" y="958" width="740" height="32" rx="6" fill="#F5F7FB" stroke="#F5F7FB"/>
+<text x="960" y="980" class="note" text-anchor="middle">条件不足可返回必要追问；证据不足说明缺口；明确部分仍可回答。</text>
+<text x="64" y="1006" class="section" >03  本地模型部署</text>
+<text x="302" y="1006" class="note" >HTTP适配器隔离服务地址与模型接口；图示为当前部署分工</text>
+<rect x="64" y="1024" width="544" height="250" rx="16" fill="#FFFFFF" stroke="#DDE4ED"/>
+<text x="88" y="1065" class="head" data-end-x="584" >应用进程 · CPU</text>
+<text x="88" y="1110" class="body" data-end-x="584" >Python模块化单体 / FastAPI</text>
+<text x="88" y="1145" class="body" data-end-x="584" >规则编排 · BM25 · RRF · 证据与出处</text>
+<text x="88" y="1180" class="body" data-end-x="584" >配置：.env ＋ configs/models.yaml</text>
+<text x="88" y="1238" class="body" data-end-x="584" >统一HTTP客户端 → 辅助模型 / LLM网关</text>
+<text x="88" y="1260" class="path" data-end-x="584" >模型地址变化只修改配置</text>
+<rect x="640" y="1024" width="640" height="250" rx="16" fill="#F0F5FF" stroke="#D7E2F5"/>
+<text x="664" y="1065" class="head" data-end-x="1256" >卡2 · 辅助模型服务</text>
+<text x="664" y="1103" class="body" data-end-x="1256" >Qwen3-1.7B                         意图识别</text>
+<text x="664" y="1136" class="body" data-end-x="1256" >Qwen3-Embedding-0.6B     文档与查询向量</text>
+<text x="664" y="1169" class="body" data-end-x="1256" >Qwen3-Reranker-0.6B        候选条款重排</text>
+<text x="664" y="1197" class="note" data-end-x="1256" >同一FastAPI进程；三个小模型共享GPU锁</text>
+<rect x="664" y="1212" width="592" height="42" rx="9" fill="#E3EAF7" stroke="#D4DEEF"/>
+<text x="960" y="1239" class="body" text-anchor="middle">内置 /llm 网关 · CPU通过HTTP转发</text>
+<rect x="1312" y="1024" width="544" height="250" rx="16" fill="#F4F1FC" stroke="#E2DCF1"/>
+<text x="1336" y="1065" class="head" data-end-x="1832" >卡5 · 独立生成模型服务</text>
+<text x="1336" y="1110" class="head" data-end-x="1832" >Qwen3.5-27B</text>
+<text x="1336" y="1148" class="body" data-end-x="1832" >查询规划 · 答案生成 · 语义复核</text>
+<text x="1336" y="1183" class="body" data-end-x="1832" >8192 tokens上下文 · 同模型token计数</text>
+<text x="1336" y="1238" class="body" data-end-x="1832" >兼容生成接口 / token计数接口</text>
+<text x="1336" y="1260" class="path" data-end-x="1832" >复核与生成使用同一模型服务</text>
+<path d="M608 1136 H632" class="flow"/>
+<path d="M608 1233 H656" class="flow"/>
+<path d="M1256 1233 H1304" class="flow"/>
+<text x="64" y="1320" class="note" >当前边界：默认只用保险条款；个人精确金额计算与办理操作未开放。</text>
+<text x="1856" y="1320" class="note" text-anchor="end">原文可追溯 ≠ 答案必然正确</text>
 </svg>

@@ -2,6 +2,8 @@
 
 系统采用 **Python模块化单体、本地模型服务与版本化证据库**。一页架构图见 [SVG](architecture.svg)／[PDF](architecture.pdf)。
 
+![系统架构图](architecture.png)
+
 `main.py` 是应用入口：`python main.py` 启动网页和API，`ask` 执行单次问答，`chat` 提供连续对话。业务代码位于 `insurance_qa/`；网页、API与CLI共用 `Pipeline.ask`。
 
 ## 模块与数据流
