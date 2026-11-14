@@ -45,6 +45,10 @@ flowchart LR
 
 ## 语料与检索
 
+数据存储架构见 [SVG](data-architecture.svg)／[PDF](data-architecture.pdf)。知识库使用本地JSON/JSONL文件，向量索引使用NumPy矩阵，会话状态独立保存在进程内存中。答案通过证据ID关联原文位置，再定位到PDF页；图中的关联由应用校验。
+
+![数据存储架构图](data-architecture.png)
+
 原始材料保存在 `data/raw/`，逐页文本保存在 `data/pages/`。短条款整节保留，复杂责任按完整分支切分；跨页正文、脚注与定义不按长度截断。`text` 保存原文跨度拼接，`retrieval_text` 保存检索所用的标题、正文和必要前提。每条来源跨度绑定PDF哈希、物理页码与字符区间。
 
 ```bash

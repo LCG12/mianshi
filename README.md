@@ -50,6 +50,7 @@ python main.py build-index --check
 默认仅使用保险条款 `terms_only`。产品说明书须显式启用扩展来源；个人精确金额计算和办理操作未开放。每轮最多提出一个有条款依据的必要追问。会话保存在单进程内存中，30分钟无成功交互后失效，重启后需新建会话。默认关闭处理记录写入。
 
 - [一页架构图](docs/architecture.svg)／[PDF版](docs/architecture.pdf)
+- [数据存储架构图](docs/data-architecture.svg)／[PDF版](docs/data-architecture.pdf)：原文、证据、索引与会话的关联。
 - [架构说明](docs/architecture.md)、[数据说明](data/README.md)、[模型部署](deploy/README.md)
 - `data/evaluation/`：题目要求的官方20问、自建12问及对应评分标签。
 
