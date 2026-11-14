@@ -1,0 +1,11 @@
+# 当前正式索引；来源范围默认仍只允许条款。
+product_id: sshy_s_hengying
+allowed_source_policies: [terms_only]
+build_id: index-d54601ef86e05379
+request_timeout_seconds: 90
+session_ttl_seconds: 1800
+max_sessions: 100
+max_session_messages: 20
+write_traces: false
+# 对混合召回的候选条款进行重排。
+rerank_enabled: true

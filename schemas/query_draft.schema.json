@@ -1,0 +1,327 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "QueryDraft v1.0",
+  "description": "应用侧草案契约。结构符合不等于语义忠实；跨字段引用、原文引用与条件作用域必须另行校验。最终查询计划由应用编译。",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "query-draft/1.0"
+    },
+    "aspects": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/aspect"
+      },
+      "minItems": 1,
+      "maxItems": 6
+    },
+    "mentions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/mention"
+      },
+      "minItems": 0,
+      "maxItems": 16
+    },
+    "ambiguities": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ambiguity"
+      },
+      "minItems": 0,
+      "maxItems": 8
+    },
+    "rewrites": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/rewrite"
+      },
+      "minItems": 0,
+      "maxItems": 3
+    },
+    "missing_information": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/missing"
+      },
+      "minItems": 0,
+      "maxItems": 12
+    },
+    "illustration_requested": {
+      "type": "boolean"
+    },
+    "conversation_mode": {
+      "type": "string",
+      "enum": [
+        "independent",
+        "followup",
+        "correction"
+      ]
+    },
+    "context_message_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "maxItems": 20,
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "schema_version",
+    "aspects",
+    "mentions",
+    "ambiguities",
+    "rewrites",
+    "missing_information",
+    "illustration_requested"
+  ],
+  "$defs": {
+    "aspect": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^a[1-9][0-9]*$"
+        },
+        "source_message_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "quote": {
+          "type": "string",
+          "minLength": 1
+        },
+        "task": {
+          "type": "string",
+          "enum": [
+            "rule_qa",
+            "case_qa",
+            "amount_query",
+            "action_request",
+            "assistant_info",
+            "chitchat",
+            "out_of_scope",
+            "unknown"
+          ]
+        },
+        "topic_hints": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "eligibility",
+              "coverage",
+              "exclusions",
+              "premium",
+              "policy_value",
+              "dividend",
+              "claims",
+              "contract_admin"
+            ]
+          },
+          "minItems": 0,
+          "maxItems": 8,
+          "uniqueItems": true
+        },
+        "objective": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id",
+        "source_message_id",
+        "quote",
+        "task",
+        "topic_hints",
+        "objective"
+      ]
+    },
+    "mention": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^m[1-9][0-9]*$"
+        },
+        "source_message_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "quote": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subject_text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "person",
+            "age",
+            "insured_count",
+            "event_count",
+            "event",
+            "cause",
+            "time",
+            "payment",
+            "money",
+            "claim",
+            "other"
+          ]
+        },
+        "modality": {
+          "type": "string",
+          "enum": [
+            "asserted",
+            "hypothetical",
+            "reported",
+            "ambiguous"
+          ]
+        },
+        "aspect_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^a[1-9][0-9]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "id",
+        "source_message_id",
+        "quote",
+        "subject_text",
+        "kind",
+        "modality",
+        "aspect_ids"
+      ]
+    },
+    "rewrite": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "faithful",
+            "subquery"
+          ]
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "aspect_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^a[1-9][0-9]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "mention_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^m[1-9][0-9]*$"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "kind",
+        "text",
+        "aspect_ids",
+        "mention_ids"
+      ]
+    },
+    "ambiguity": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "source_message_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "quote": {
+          "type": "string",
+          "minLength": 1
+        },
+        "aspect_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^a[1-9][0-9]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "alternatives": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 2,
+          "maxItems": 4,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "source_message_id",
+        "quote",
+        "aspect_ids",
+        "alternatives"
+      ]
+    },
+    "missing": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "field": {
+          "type": "string",
+          "minLength": 1
+        },
+        "aspect_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^a[1-9][0-9]*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "needed_for": {
+          "type": "string",
+          "enum": [
+            "case_resolution",
+            "exact_amount",
+            "referent_resolution"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "field",
+        "aspect_ids",
+        "needed_for",
+        "reason"
+      ]
+    }
+  }
+}

@@ -1,0 +1,180 @@
+{
+  "input_sha256": {
+    "sshy_s_hengying_description": {
+      "pdf": "e03a3a10ef3b4955499f3f09292ffad751ff5e55cc0bad9c9be6d726ae55ca68",
+      "page_text": "40cfe3c3799d1b24412bc42141d9a271d70123170c309f7251093df5111fc2ee"
+    },
+    "sshy_s_hengying_sum_assured": {
+      "pdf": "bd6ea0354721469e8b25c470b2922d7a99abd00c73bd8159b605382ef8e0b0b1",
+      "page_text": "67836b320a7de079f8ca7e395328656bf6785f7362b594d8ccd279cdcd786f50"
+    },
+    "sshy_s_hengying_cash_value": {
+      "pdf": "8a389a97fe78ad87f7bdc35add952b19855b5acd6f3fb45bd02b1640180c527c",
+      "page_text": "53f40b765be78e49b1e6943e39a46bb5625ec67e66fe6e753dabf3f6efcc34eb"
+    }
+  },
+  "description_sections": [
+    {"section": "一", "title": "重要提示", "start": [1, 92]},
+    {"section": "二", "title": "产品特色", "start": [1, 346]},
+    {"section": "三", "title": "投保范围及保险期间", "start": [1, 729]},
+    {"section": "四", "title": "保险金额及保障责任", "start": [2, 99]},
+    {"section": "五", "title": "责任免除", "start": [4, 1199]},
+    {"section": "六", "title": "保险费的交纳", "start": [6, 288]},
+    {"section": "七", "title": "红利及分配方式", "start": [6, 801]},
+    {"section": "八", "title": "投资策略及资金运作", "start": [8, 567]},
+    {"section": "九", "title": "犹豫期及退保", "start": [8, 812]}
+  ],
+  "description_splits": {
+    "四": [
+      {"key": "basic", "title": "基本保险金额", "start": "1、基本保险金额", "requires": []},
+      {"key": "effective", "title": "有效保险金额", "start": "2、有效保险金额", "requires": []},
+      {"key": "coverage_context", "title": "保险责任共同前提", "start": "3、保险责任", "requires": []},
+      {"key": "single", "title": "身故保险金或全残保险金（被保险人为一人）", "start": "（1）身故保险金或全残保险金（被保险人为一人的情形）：", "requires": ["四.coverage_context"]},
+      {"key": "joint", "title": "身故保险金或全残保险金（被保险人为两人）", "start": "（2）身故保险金或全残保险金（被保险人为两人的情形）：", "requires": ["四.coverage_context"], "references": ["2.5.2.under18", "2.5.2.before_payment_end", "2.5.2.after_payment_end"]},
+      {"key": "waiver", "title": "意外身故或意外全残豁免保险费", "start": "（3）意外身故或意外全残豁免保险费", "requires": ["四.coverage_context"]}
+    ],
+    "六": [
+      {"key": "payment", "title": "保险费的支付", "start": "1、保险费的支付", "requires": []},
+      {"key": "grace_period", "title": "宽限期", "start": "2、宽限期", "requires": []}
+    ],
+    "七": [
+      {"key": "overview", "title": "红利来源及分配", "start": "七、红利及分配方式", "requires": []},
+      {"key": "accumulation", "title": "累积生息", "start": "1、累积生息", "requires": ["七.overview", "七.choice_change"]},
+      {"key": "paid_up", "title": "购买交清保额", "start": "2、购买交清保额", "requires": ["七.overview", "七.choice_change"], "references": ["3.2.ordered_under18", "3.2.ordered_before_payment_end", "3.2.ordered_after_payment_end"]},
+      {"key": "choice_change", "title": "红利领取方式选择、变更及减保", "start": "如果投保人在投保时未选择红利领取方式", "requires": ["七.overview"]}
+    ],
+    "九": [
+      {"key": "cooling_off", "title": "犹豫期", "start": "1、犹豫期", "requires": []},
+      {"key": "surrender", "title": "退保和现金价值", "start": "2、退保和现金价值", "requires": []}
+    ]
+  },
+  "description_footnotes": [[1, 1187, 1280], [1, 1281, 1406]],
+  "description_footnote_section": "二",
+  "description_excluded_sections": [
+    {
+      "section": "十",
+      "title": "投保示例",
+      "start": [9, 34],
+      "pages": [9, 15],
+      "reason": "具体人物、交费假设、利益演示数表及跨页注释，不作为一般产品规则索引。"
+    }
+  ],
+  "tables": [
+    {
+      "document_id": "sshy_s_hengying_sum_assured",
+      "section": "table_1",
+      "title": "太保盛世鸿运S（恒赢版）终身寿险（分红型）基本保险金额表-被保险人为一人",
+      "pages": [1, 2],
+      "spans": [[1, 0, 305]],
+      "unit": "每10,000元年交保费对应的基本保险金额",
+      "currency": "人民币元",
+      "insured_count": 1,
+      "dimensions": ["保险期间", "投保年龄", "性别", "交费期间"],
+      "applicability": "被保险人为一人；按投保年龄、性别及交费期间确定基本保险金额。",
+      "lookup_supported": false,
+      "formula_layout_risk": false
+    },
+    {
+      "document_id": "sshy_s_hengying_sum_assured",
+      "section": "table_2",
+      "title": "太保盛世鸿运S（恒赢版）终身寿险（分红型）基本保险金额表-被保险人为两人",
+      "pages": [3, 4],
+      "spans": [[3, 0, 304], [4, 1400, 1496]],
+      "unit": "每10,000元年交保费对应的基本保险金额",
+      "currency": "人民币元",
+      "insured_count": 2,
+      "dimensions": ["保险期间", "投保年龄", "性别", "交费期间"],
+      "applicability": "被保险人为两人；投保年龄不同，按年龄较小者的年龄、性别计算；投保年龄相同且性别不同，按女性的年龄、性别计算。",
+      "lookup_supported": false,
+      "formula_layout_risk": false
+    },
+    {
+      "document_id": "sshy_s_hengying_sum_assured",
+      "section": "table_3",
+      "title": "太保盛世鸿运S（恒赢版）终身寿险（分红型）购买交清保额的净保险费表-被保险人为一人",
+      "pages": [5, 362],
+      "spans": [[5, 0, 229], [362, 190, 273]],
+      "unit": "每1,000元交清增额基本保险金额",
+      "currency": "人民币元",
+      "insured_count": 1,
+      "dimensions": ["投保年龄", "保险期间", "交费期间", "保单年度", "性别"],
+      "applicability": "被保险人为一人；105周岁以后对应保单年度末购买交清保额的净保险费计算规则见表尾注释。",
+      "lookup_supported": false,
+      "formula_layout_risk": true,
+      "formula_note": "表尾公式的(n-1)上标在提取文本中独立成行；保留原文引用，本阶段不自动解释或计算。"
+    },
+    {
+      "document_id": "sshy_s_hengying_sum_assured",
+      "section": "table_4",
+      "title": "太保盛世鸿运S（恒赢版）终身寿险（分红型）购买交清保额的净保险费表-被保险人为两人",
+      "pages": [363, 720],
+      "spans": [[363, 0, 229], [720, 184, 377]],
+      "unit": "每1,000元交清增额基本保险金额",
+      "currency": "人民币元",
+      "insured_count": 2,
+      "dimensions": ["投保年龄", "保险期间", "交费期间", "保单年度", "性别"],
+      "applicability": "被保险人为两人；投保年龄不同，按年龄较小者的年龄、性别计算；投保年龄相同且性别不同，按女性的年龄、性别计算。105周岁以后计算规则见表尾注释。",
+      "lookup_supported": false,
+      "formula_layout_risk": true,
+      "formula_note": "表尾公式的(n-1)上标在提取文本中独立成行；保留原文引用，本阶段不自动解释或计算。"
+    },
+    {
+      "document_id": "sshy_s_hengying_cash_value",
+      "section": "table_5",
+      "title": "太保盛世鸿运S（恒赢版）终身寿险（分红型）现金价值全表-被保险人为一人",
+      "pages": [1, 364],
+      "spans": [[1, 0, 251], [364, 1640, 1763]],
+      "unit": "每10,000元年交保费",
+      "currency": "人民币元",
+      "insured_count": 1,
+      "dimensions": ["投保年龄", "保险期间", "交费期间", "保单年度", "性别"],
+      "applicability": "被保险人为一人；现金价值为保单年度末的值。无欠交保费时，退保金额为退保时点现金价值；有欠交保费时，为最后一次交费所在交费期期末对应现金价值。105周岁以后对应保单年度末现金价值等于当年的有效保险金额。",
+      "lookup_supported": false,
+      "formula_layout_risk": false
+    },
+    {
+      "document_id": "sshy_s_hengying_cash_value",
+      "section": "table_6",
+      "title": "太保盛世鸿运S（恒赢版）终身寿险（分红型）现金价值全表-被保险人为两人",
+      "pages": [365, 728],
+      "spans": [[365, 0, 251], [728, 1641, 1863]],
+      "unit": "每10,000元年交保费",
+      "currency": "人民币元",
+      "insured_count": 2,
+      "dimensions": ["投保年龄", "保险期间", "交费期间", "保单年度", "性别"],
+      "applicability": "被保险人为两人；投保年龄不同，按年龄较小者的年龄、性别计算；投保年龄相同但性别不同，按女性的年龄、性别计算。现金价值为保单年度末的值。无欠交保费时，退保金额为退保时点现金价值；有欠交保费时，为最后一次交费所在交费期期末对应现金价值。105周岁以后对应保单年度末现金价值等于当年的有效保险金额。",
+      "lookup_supported": false,
+      "formula_layout_risk": false
+    },
+    {
+      "document_id": "sshy_s_hengying_cash_value",
+      "section": "table_7",
+      "title": "太保盛世鸿运S（恒赢版）终身寿险（分红型）购买交清保额后的基本保险金额对应的现金价值全表-被保险人为一人",
+      "pages": [729, 1073],
+      "spans": [[729, 0, 275], [1073, 1488, 1615]],
+      "unit": "对应每1,000元交清增额基本保险金额",
+      "currency": "人民币元",
+      "insured_count": 1,
+      "dimensions": ["投保年龄", "保险期间", "交费期间", "保单年度", "性别"],
+      "applicability": "被保险人为一人；红利购买交清保额后，交清增额基本保险金额的保单年度末现金价值。105周岁以后计算规则见表尾注释。",
+      "lookup_supported": false,
+      "formula_layout_risk": true,
+      "formula_note": "表尾公式的(n-1)上标在提取文本中独立成行；保留原文引用，本阶段不自动解释或计算。"
+    },
+    {
+      "document_id": "sshy_s_hengying_cash_value",
+      "section": "table_8",
+      "title": "太保盛世鸿运S（恒赢版）终身寿险（分红型）购买交清保额后的基本保险金额对应的现金价值全表 -被保险人为两人",
+      "pages": [1074, 1437],
+      "spans": [[1074, 0, 287], [1437, 1776, 2003]],
+      "unit": "对应每1,000元交清增额基本保险金额",
+      "currency": "人民币元",
+      "insured_count": 2,
+      "dimensions": ["投保年龄", "保险期间", "交费期间", "保单年度", "性别"],
+      "applicability": "被保险人为两人；红利购买交清保额后，交清增额基本保险金额的保单年度末现金价值。投保年龄不同，按年龄较小者的年龄、性别计算；投保年龄相同但性别不同，按女性的年龄、性别计算。105周岁以后计算规则见表尾注释。",
+      "lookup_supported": false,
+      "formula_layout_risk": true,
+      "formula_note": "表尾公式的(n-1)上标在提取文本中独立成行；保留原文引用，本阶段不自动解释或计算。"
+    }
+  ]
+}

@@ -1,0 +1,337 @@
+{
+  "review_status": "assistant_source_reviewed",
+  "not_human_gold": true,
+  "official_reference_answers_available": false,
+  "source_policy": "terms_only",
+  "corpus_id": "corpus-5cb4911643c664b9",
+  "frozen_at": "2026-11-14T01:31:48.760473+00:00",
+  "questions_sha256": "6e8bbb053fdc182ff2fbd6e8a3e4854dba5018bb4c3a5cc9d5cada3f47136264",
+  "construction": "12道新写单轮问题，每类2道：主体、时间边界、双人分支、多目标、资料缺口、必要追问。覆盖已知风险机制但不复制固定题原句；用于本次收尾验收，不代表随机客户分布。",
+  "usage": "题目、要点在调用模型前冻结；category、要点和出处只用于离线评测，不进入问答请求。如据此修改代码或提示词，该集即成为开发集，须在报告披露。",
+  "scoring": {
+    "complete": "全部用户目标有原文支持且必要条件齐全、出处真实；有错误、漏目标、未解决金额或来源缺口不能算完整答对。",
+    "clarification": "必要且有依据的追问单列，不计完整回答。",
+    "partial": "有据回答部分目标且明确未完成目标。",
+    "unsupported": "交付结论出现错主体、错条件、错范围或无源断言。",
+    "blocked": "未交付，包括程序校验失败、服务失败；按原因分别记录。"
+  },
+  "source_review": {
+    "document_sha256": "b15fd3d55380762b2e465b3839449a924b32d5bc475130585fd9147056a7c400",
+    "section_text_sha256": {
+      "1.3": "cdbb4ac1eb3558f15af34894b59903ebbe1934758cab0c75fb42454c255db413",
+      "12.1": "23a93c072f4bbe3acec22c3c4369d19591ea31761ea7ca468f583bbc5cf1d155",
+      "12.5": "2b3bcf7bf3bcdf8f892c7e6e3f15b5d2cb5190873033b74451967033af50778d",
+      "12.7": "bebbff9ffbabbad014f2e09166b23171b05d837858a770f9653eaadfcc27bc92",
+      "12.8": "bfd458579a94761b3c3febce52aee8169971cde2d6f360bcd290cb23372f924f",
+      "12.9": "5d5d16455d5ccea46d8af153af6c9a2fd84f2e44515e1f45def931c58e400ba8",
+      "2.1": "ba3f1d199bd16c9b4c3b3baf04f108c1789f98c401626298226ea1d44e34b67d",
+      "2.2": "ff91b9c1beaa536bc4a69f03cc7a88274b7e609de5e52c01e286dfbc49fc197f",
+      "2.4": "021d8b0312e76b2c1ed629cc3845263d37a0621bb7b6569c84aa10ec4d9dc45e",
+      "2.5": "0008fb53fb6000063947b0dd5974b9eeb47e06648355cc4b1de2b8a564a5f69a",
+      "2.5.1.adjustment": "ec1404f89bfd80fd0b368205097147b513c4b39a0b5f8f04b28a66332f3fe60c",
+      "2.5.1.early90": "f82a87e38e795ffc3af68e00d8ae55e50e2ab03eaab12d95feaeb41f2e25d63a",
+      "2.5.1.scope": "f0dc7ecac9f6196f3041d25ef02aefe48b03d6d6d3a99799a27adb879bcabc99",
+      "2.5.2.adjustment": "ec1404f89bfd80fd0b368205097147b513c4b39a0b5f8f04b28a66332f3fe60c",
+      "2.5.2.scope": "c2092f1f366d1a399c42956e77943c5e29cc27bc9b1ef451d460a397ac78ca46",
+      "2.5.2.unordered_early90": "c40d155688b6c0ae7c0e7c5ec24cace28e684057970d24eae09e9164455723ff",
+      "2.5.3": "cacca43647e089811515788989d2896189a022d8bc9b8b2f284762cb946d6284",
+      "2.6.1": "df78e510d730cab39d4cb5e23dc06314f972f5212dbcb780793bad3449747f83",
+      "2.6.2": "412cb76307d07a80b9acf352f06168429611d1052670d647868e1c94b6c30eaa",
+      "3.1": "cb7bef998b46ce0464a97a651cb66d91b4544e5feef4ed20b743a5933dc6612b",
+      "3.2.change": "ef3b21a3d6decce5f2e7d7b1c592715736c09b7e0613d62f1d4aa99f394ab62a",
+      "4.1": "96679139aec455fd168ec2dd58598cd33c783d4a593e5e6d21f1ca93666556c2",
+      "5.1": "5f56c8c65561d22d39e5b92f2be743b64d240e2ef4a665cac5849b4c086c43d7",
+      "6.2": "64bc63043d0bc57990af2be497e4d60cc706f64e073391adc270c8805782a978"
+    }
+  },
+  "cases": [
+    {
+      "id": "final_01",
+      "expected_behavior": "answer_general_rule",
+      "required_points": [
+        "投保年龄约束被保险人，不是简单按付费者或投保人年龄判断。",
+        "若解释周岁，按有效身份证件出生日期，每经过一年增加一岁，不足一年不计。"
+      ],
+      "forbidden_points": [
+        "把投保人与被保险人混为一人，或把1.3年龄范围直接套在付款人身上。"
+      ],
+      "relevant_sections": [
+        "1.3",
+        "12.5"
+      ],
+      "pdf_pages": {
+        "sshy_s_hengying_terms": [
+          3,
+          16
+        ]
+      }
+    },
+    {
+      "id": "final_02",
+      "expected_behavior": "conditional_rule_answer",
+      "required_points": [
+        "女性被保险人投保年龄上限70周岁；若投保时为69周岁，属于条款列示年龄范围。",
+        "年龄范围符合不等于保证承保，仍须符合投保时公司的规定。"
+      ],
+      "forbidden_points": [
+        "套用男性68周岁上限排除女性69周岁。",
+        "无条件保证承保。"
+      ],
+      "relevant_sections": [
+        "1.3",
+        "12.5"
+      ],
+      "pdf_pages": {
+        "sshy_s_hengying_terms": [
+          3,
+          16
+        ]
+      }
+    },
+    {
+      "id": "final_03",
+      "expected_behavior": "answer_both_goals",
+      "required_points": [
+        "有效保险金额每满一个保单年度增加一次，不是每个自然年年初自动增加。",
+        "增加额度为前一个保单年度有效保险金额的1.75%；不能把基数写成保费或初始保额。",
+        "若给连续增长承诺或公式，应说明减保或约定变更时会相应调整。"
+      ],
+      "forbidden_points": [
+        "漏掉年度口径或递增基数任一目标。",
+        "把1.75%当现金收益或分红率。"
+      ],
+      "relevant_sections": [
+        "2.2",
+        "12.1"
+      ],
+      "pdf_pages": {
+        "sshy_s_hengying_terms": [
+          4,
+          16
+        ]
+      }
+    },
+    {
+      "id": "final_04",
+      "expected_behavior": "conditional_early90_rule",
+      "required_points": [
+        "起算点采用合同生效与最后一次复效的较迟者；题设应条件化采用最后复效后60天的早期分支。",
+        "若介绍给付，说明单人90日内非意外身故按条款约定已支付保险费给付保险金并终止合同，保留合同有效、对应免责与减保调整。"
+      ],
+      "forbidden_points": [
+        "只按最初生效两年认为超过90日。",
+        "把90日内疾病写成一律零给付或沿用90日后取大公式。"
+      ],
+      "relevant_sections": [
+        "2.5",
+        "2.5.1.early90",
+        "2.5.1.adjustment",
+        "2.6.1",
+        "12.9"
+      ],
+      "pdf_pages": {
+        "sshy_s_hengying_terms": [
+          4,
+          5,
+          7,
+          17
+        ]
+      }
+    },
+    {
+      "id": "final_05",
+      "expected_behavior": "answer_insurance_period_with_scope",
+      "required_points": [
+        "双人保单保险期间原则上至最后一名被保险人身故，不能只因一人先去世就认定期间届满。",
+        "说明的是保险期间规则，不据此承诺合同无论解除、效力或其他条款如何都必然继续。"
+      ],
+      "forbidden_points": [
+        "双人第一人身故即保险期间结束。",
+        "把未给出的身故原因当意外并承诺豁免保费。"
+      ],
+      "relevant_sections": [
+        "2.4",
+        "2.5.3"
+      ],
+      "pdf_pages": {
+        "sshy_s_hengying_terms": [
+          4,
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "id": "final_06",
+      "expected_behavior": "answer_beneficiary_group_share",
+      "required_points": [
+        "在合同有效、对应责任及免责条件满足时，早期同时发生分支以条款口径已支付保险费作为总保险金，合同终止。",
+        "每名被保险人对应的受益人合计领取总保险金50%，不是每个受益人各50%。",
+        "如解释同一被保险人有多位受益人，按指定份额；未确定份额时同组受益人等份。"
+      ],
+      "forbidden_points": [
+        "每位受益人都获得总保险金一半，或两名被保险人各对应一份完整保险金。",
+        "套用常规90日后三者取大分支。"
+      ],
+      "relevant_sections": [
+        "2.5",
+        "2.5.2.scope",
+        "2.5.2.unordered_early90",
+        "2.5.2.adjustment",
+        "2.6.2",
+        "4.1",
+        "12.9"
+      ],
+      "pdf_pages": {
+        "sshy_s_hengying_terms": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          11,
+          17
+        ]
+      }
+    },
+    {
+      "id": "final_07",
+      "expected_behavior": "answer_two_different_change_rules",
+      "required_points": [
+        "交费方式及期间一经确定不得变更。",
+        "红利领取方式可以申请变更，需填写变更申请书且公司审核同意；同一保单年度仅限一次，不影响此前已分配红利。"
+      ],
+      "forbidden_points": [
+        "将两类变更都答成禁止或都答成允许。",
+        "只回答交费期间，漏掉红利领取方式。"
+      ],
+      "relevant_sections": [
+        "5.1",
+        "3.2.change"
+      ],
+      "pdf_pages": {
+        "sshy_s_hengying_terms": [
+          11,
+          13
+        ]
+      }
+    },
+    {
+      "id": "final_08",
+      "expected_behavior": "answer_two_percentage_bases",
+      "required_points": [
+        "减保20%针对每年累计减少的基本保险金额，以合同生效时基本保险金额为基数，不是可提现保费20%。",
+        "贷款80%上限以现金价值扣除各项欠款后的余额为基数，不是已交保费80%。",
+        "仅比较上限基数无需复述申请全过程；若进一步宣称可办理，须保留减保审核/最低保险费或贷款犹豫期后、合同有效、审核、被保险人书面同意等相应条件。"
+      ],
+      "forbidden_points": [
+        "把两个百分比统一当作已交保费比例。",
+        "混同贷款借款与减保现金价值退还。"
+      ],
+      "relevant_sections": [
+        "2.1",
+        "6.2"
+      ],
+      "pdf_pages": {
+        "sshy_s_hengying_terms": [
+          3,
+          4,
+          14
+        ]
+      }
+    },
+    {
+      "id": "final_09",
+      "expected_behavior": "amount_unavailable_with_supported_uncertainty",
+      "required_points": [
+        "未来保单红利不确定，由当年分红保险业务实际经营状况决定，并以红利通知书告知具体分配。",
+        "不能给明年保证金额；明确金额目标未完成，现阶段不提供个人精确金额计算。"
+      ],
+      "forbidden_points": [
+        "保证一个具体金额、回报率或未来一定有正红利。",
+        "用一般不确定性说明冒充已算出金额，或索取保费后暗示能保证精算未来红利。"
+      ],
+      "relevant_sections": [
+        "3.1"
+      ],
+      "pdf_pages": {
+        "sshy_s_hengying_terms": [
+          9
+        ]
+      }
+    },
+    {
+      "id": "final_10",
+      "expected_behavior": "source_limited_partial_answer",
+      "required_points": [
+        "可说明3.1规定参与分红保险业务可分配盈余的分配，红利不确定。",
+        "当前terms_only证据不足以确认70%比例，标明该目标未完成；不能断言全文没有规定，更不能越界使用说明书。"
+      ],
+      "forbidden_points": [
+        "直接确认至少70%，却没有当前允许来源的支持。",
+        "把可分配盈余比例当作个人保费收益率。"
+      ],
+      "relevant_sections": [
+        "3.1"
+      ],
+      "pdf_pages": {
+        "sshy_s_hengying_terms": [
+          9
+        ]
+      }
+    },
+    {
+      "id": "final_11",
+      "expected_behavior": "one_event_clarification",
+      "required_points": [
+        "事件未明确，优先用通俗语言询问具体发生什么，不把出事推断为身故、全残、意外或疾病。",
+        "最多一个有条款依据且能推进判断的问题，允许用户不清楚。若附规则，必须明确仅为一般说明。"
+      ],
+      "forbidden_points": [
+        "直接认定能赔或不赔。",
+        "要求用户自己认定保险意义上的全残，或批量索取金额参数。"
+      ],
+      "relevant_sections": [
+        "2.5",
+        "2.5.1.scope",
+        "2.5.2.scope",
+        "12.7",
+        "12.8"
+      ],
+      "pdf_pages": {
+        "sshy_s_hengying_terms": [
+          4,
+          5,
+          16,
+          17
+        ]
+      }
+    },
+    {
+      "id": "final_12",
+      "expected_behavior": "one_insured_count_clarification",
+      "required_points": [
+        "在已知疾病身故但被保险人人数未知时，优先询问一位还是两位被保险人、是否曾减少人数。",
+        "不把该家人死亡当作双人都出险，也不默认已过生效或最后复效后的90日。"
+      ],
+      "forbidden_points": [
+        "直接套单人或双人给付并保证个案可赔。",
+        "在关键人数未知时先索取保费或承诺算出个人赔款。"
+      ],
+      "relevant_sections": [
+        "2.5.1.scope",
+        "2.5.1.early90",
+        "2.5.2.scope",
+        "2.5.3"
+      ],
+      "pdf_pages": {
+        "sshy_s_hengying_terms": [
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    }
+  ]
+}

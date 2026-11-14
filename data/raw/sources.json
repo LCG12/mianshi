@@ -1,0 +1,65 @@
+{
+  "scope": "固定评测指定产品；暂不扩展其他产品或版本",
+  "discovered_on": "2026-11-11",
+  "documents": [
+    {
+      "id": "sshy_s_hengying_terms",
+      "title": "太保盛世鸿运S（恒赢版）终身寿险（分红型）条款",
+      "document_type": "terms",
+      "expected_pages": 19,
+      "product_name": "太保盛世鸿运S（恒赢版）终身寿险（分红型）",
+      "url": "https://www.cpic.com.cn/upload/resources/file/2026/08/25/105491.pdf",
+      "listing_url": "https://www.cpic.com.cn/xrsbx/gkxxpl/jbxx/gsgk/jydbxcpmljtk/zbcp/sx/index.shtml",
+      "local_pdf": "data/raw/pdf/sshy_s_hengying_terms.pdf",
+      "sales_status_source_url": "https://www.cpic.com.cn/xrsbx/gkxxpl/zxxx/xxcp/sx/index.shtml"
+    },
+    {
+      "id": "sshy_s_hengying_sum_assured",
+      "title": "太保盛世鸿运S（恒赢版）终身寿险（分红型）基本保险金额表",
+      "document_type": "sum_assured_table",
+      "product_name": "太保盛世鸿运S（恒赢版）终身寿险（分红型）",
+      "url": "https://www.cpic.com.cn/upload/resources/file/2026/08/25/105492.pdf",
+      "listing_url": "https://www.cpic.com.cn/xrsbx/gkxxpl/jbxx/gsgk/jydbxcpmljtk/zbcp/sx/index.shtml",
+      "local_pdf": "data/raw/pdf/sshy_s_hengying_sum_assured.pdf",
+      "sales_status_source_url": "https://www.cpic.com.cn/xrsbx/gkxxpl/zxxx/xxcp/sx/index.shtml",
+      "expected_pages": 720
+    },
+    {
+      "id": "sshy_s_hengying_cash_value",
+      "title": "太保盛世鸿运S（恒赢版）终身寿险（分红型）现金价值全表",
+      "document_type": "cash_value_table",
+      "product_name": "太保盛世鸿运S（恒赢版）终身寿险（分红型）",
+      "url": "https://www.cpic.com.cn/upload/resources/file/2026/08/25/105493.pdf",
+      "listing_url": "https://www.cpic.com.cn/xrsbx/gkxxpl/jbxx/gsgk/jydbxcpmljtk/zbcp/sx/index.shtml",
+      "local_pdf": "data/raw/pdf/sshy_s_hengying_cash_value.pdf",
+      "sales_status_source_url": "https://www.cpic.com.cn/xrsbx/gkxxpl/zxxx/xxcp/sx/index.shtml",
+      "expected_pages": 1437
+    },
+    {
+      "id": "sshy_s_hengying_description",
+      "title": "太保盛世鸿运S（恒赢版）终身寿险（分红型）产品说明书",
+      "document_type": "product_description",
+      "expected_pages": 15,
+      "product_name": "太保盛世鸿运S（恒赢版）终身寿险（分红型）",
+      "url": "https://www.cpic.com.cn/upload/resources/file/2026/08/25/105494.pdf",
+      "listing_url": "https://www.cpic.com.cn/xrsbx/gkxxpl/jbxx/gsgk/jydbxcpmljtk/zbcp/sx/index.shtml",
+      "local_pdf": "data/raw/pdf/sshy_s_hengying_description.pdf",
+      "sales_status_source_url": "https://www.cpic.com.cn/xrsbx/gkxxpl/zxxx/xxcp/sx/index.shtml"
+    }
+  ],
+  "product_identity": {
+    "product_name": "太保盛世鸿运S（恒赢版）终身寿险（分红型）",
+    "clause_code": "太平洋人寿[2026]终身寿险085号",
+    "issuer": "中国太平洋人寿保险股份有限公司",
+    "upload_directory_date": "2026-08-25",
+    "upload_date_is_effective_date": false,
+    "sales_status_evidence": {
+      "official_label": "在办新型产品最新版本信息",
+      "url": "https://www.cpic.com.cn/xrsbx/gkxxpl/zxxx/xxcp/sx/index.shtml",
+      "product_row": 6,
+      "snapshot_file": "data/raw/listings/in_force_listing.txt",
+      "observed_date": "2026-11-11",
+      "interpretation": "官网列示为在办产品；不扩展推断所有渠道、地区均可购买。"
+    }
+  }
+}

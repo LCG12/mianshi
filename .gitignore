@@ -1,0 +1,38 @@
+# Python environments and build products
+.venv/
+.venv-models/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+/models/
+/logs/
+
+# Local secrets and service overrides
+.env
+.env.*
+!.env.example
+configs/*.local.yaml
+configs/*.local.yml
+/.agents/
+/.aws/
+/.codex/
+
+# Original interview attachments remain local.
+/*.docx
+/*.xlsx
+
+# Generated runs and build snapshots; keep existing source data visible
+outputs/*
+data/corpus/*
+!data/corpus/corpus-5cb4911643c664b9/
+data/index/*
+!data/index/index-d54601ef86e05379/
+
+# Editor and temporary files
+.DS_Store
+*.swp
+*.swo
+.~lock.*#

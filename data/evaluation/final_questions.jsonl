@@ -1,0 +1,12 @@
+{"id": "final_01", "group": "self_built", "category": "subject", "question": "条款里的投保年龄，是掏钱买保险那个人的年龄，还是被保障的人的年龄？", "source_policy": "terms_only"}
+{"id": "final_02", "group": "self_built", "category": "subject", "question": "女性投保时已经满69周岁，是否仍在条款写的被保险人年龄范围内？", "source_policy": "terms_only"}
+{"id": "final_03", "group": "self_built", "category": "time_boundary", "question": "保额是每过一个自然年就涨，还是按保单年度涨？增幅以什么为基数？", "source_policy": "terms_only"}
+{"id": "final_04", "group": "self_built", "category": "time_boundary", "question": "假设只有一名被保险人，合同生效已两年，但最后复效后第60天因疾病身故，应按哪个90日起点看？", "source_policy": "terms_only"}
+{"id": "final_05", "group": "self_built", "category": "two_insured", "question": "两个人在同一张保单里，一人先去世、另一人还活着，保险期间就结束了吗？", "source_policy": "terms_only"}
+{"id": "final_06", "group": "self_built", "category": "two_insured", "question": "双人保单，两人均在生效或最后复效的较迟日起90日内因非意外原因同时身故，是每个受益人都能领总保险金的一半吗？", "source_policy": "terms_only"}
+{"id": "final_07", "group": "self_built", "category": "multi_goal", "question": "交费期间选好了还能改吗？红利领取方式也一样不能改吗？", "source_policy": "terms_only"}
+{"id": "final_08", "group": "self_built", "category": "multi_goal", "question": "减少基本保额的20%和保单贷款的80%，都是按我交的保费算吗？", "source_policy": "terms_only"}
+{"id": "final_09", "group": "self_built", "category": "source_gap", "question": "只根据保险条款告诉我，明年一定能分到多少元红利？", "source_policy": "terms_only"}
+{"id": "final_10", "group": "self_built", "category": "source_gap", "question": "只看保险条款，能确认分给客户的红利至少占可分配盈余的70%吗？", "source_policy": "terms_only"}
+{"id": "final_11", "group": "self_built", "category": "clarification", "question": "家里出了点事，我想知道这张保单能不能用得上？", "source_policy": "terms_only"}
+{"id": "final_12", "group": "self_built", "category": "clarification", "question": "家人因病去世了，这张保单应该按哪一种身故责任看？", "source_policy": "terms_only"}

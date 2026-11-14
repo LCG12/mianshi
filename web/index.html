@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>条款有据 · 保险问答</title>
+  <style>
+    :root { color-scheme: light; --ink:#17332d; --muted:#60716a; --line:#dce4de; --paper:#fff; --bg:#f3f6f2; --accent:#1c6855; --soft:#eaf3ed; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.7 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; }
+    button,textarea { font:inherit; }
+    button { cursor:pointer; }
+    button:disabled { cursor:wait; opacity:.55; }
+    header { max-width:1160px; margin:auto; padding:36px 24px 24px; }
+    .eyebrow { margin:0 0 5px; color:var(--accent); letter-spacing:.16em; font-size:12px; font-weight:700; }
+    h1 { margin:0; font-size:30px; letter-spacing:-.04em; font-weight:650; }
+    .subtitle { margin:8px 0 14px; color:var(--muted); font-size:14px; }
+    .status { display:inline-flex; align-items:center; gap:8px; color:var(--muted); font-size:13px; }
+    .dot { width:8px; height:8px; border-radius:50%; background:#c79038; }
+    .status.ready .dot { background:#428561; }
+    main { max-width:1160px; padding:0 24px 40px; margin:auto; display:grid; grid-template-columns:minmax(0,1.65fr) minmax(270px,1fr); gap:20px; align-items:start; }
+    .card { background:var(--paper); border:1px solid var(--line); border-radius:16px; overflow:hidden; }
+    .card-head { padding:18px 22px; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; gap:12px; }
+    .card-head h2 { margin:0; font-size:15px; font-weight:650; }
+    .quiet { border:1px solid var(--line); color:var(--muted); background:transparent; border-radius:8px; padding:5px 11px; font-size:12px; }
+    #conversation { min-height:260px; max-height:560px; overflow:auto; padding:22px; }
+    .intro { color:var(--muted); padding:18px 0 30px; }
+    .intro strong { display:block; color:var(--ink); font-size:20px; font-weight:600; margin-bottom:8px; }
+    .suggestions { display:flex; gap:8px; flex-wrap:wrap; margin-top:18px; }
+    .suggestion { border:1px solid var(--line); background:#fff; border-radius:8px; padding:7px 11px; color:var(--ink); font-size:13px; }
+    .turn { margin-bottom:20px; }
+    .role { font-size:11px; color:var(--muted); margin:0 0 5px; letter-spacing:.08em; }
+    .bubble { padding:13px 16px; border-radius:12px; background:#f4f6f3; white-space:pre-wrap; overflow-wrap:anywhere; }
+    .user .bubble { background:var(--soft); }
+    .error .bubble { background:#fff5e7; color:#705528; }
+    .bubble p { margin:0 0 10px; }
+    .bubble p:last-child { margin-bottom:0; }
+    .followup { border-left:3px solid var(--accent); padding-left:12px; margin-top:12px; }
+    form { padding:18px 22px 20px; border-top:1px solid var(--line); }
+    label { display:block; font-size:13px; margin-bottom:8px; }
+    textarea { width:100%; resize:vertical; min-height:92px; max-height:240px; border:1px solid var(--line); border-radius:10px; color:var(--ink); background:#fcfdfb; padding:12px; outline:none; }
+    textarea:focus { border-color:var(--accent); box-shadow:0 0 0 3px #1c685515; }
+    .form-bottom { display:flex; justify-content:space-between; gap:16px; align-items:center; margin-top:12px; }
+    .hint { color:var(--muted); font-size:12px; }
+    .primary { background:var(--accent); color:#fff; border:0; border-radius:9px; padding:9px 21px; white-space:nowrap; }
+    #sources { padding:18px 22px; min-height:160px; }
+    .empty { font-size:13px; color:var(--muted); }
+    .source { padding:12px 0; border-bottom:1px solid var(--line); }
+    .source:first-child { padding-top:0; }
+    .source:last-child { border:0; }
+    .source-title { font-size:14px; font-weight:600; }
+    .source-meta { font-size:12px; color:var(--muted); }
+    .source blockquote { margin:9px 0; border-left:2px solid var(--line); padding-left:10px; color:var(--muted); font-size:13px; white-space:pre-wrap; }
+    a { color:var(--accent); text-underline-offset:3px; }
+    .source a { display:inline-block; font-size:12px; margin-right:14px; }
+    details { margin-top:16px; border:1px solid var(--line); border-radius:12px; background:#fff; padding:13px 16px; }
+    summary { cursor:pointer; font-size:13px; color:var(--muted); }
+    pre { white-space:pre-wrap; overflow-wrap:anywhere; font-size:11px; max-height:350px; overflow:auto; }
+    footer { color:var(--muted); font-size:12px; margin-top:16px; }
+    @media (max-width:780px) { main { grid-template-columns:1fr; padding:0 16px 30px; } header { padding:25px 18px 20px; } h1 { font-size:25px; } #conversation { min-height:200px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <p class="eyebrow">条款有据 · INSURANCE QA</p>
+    <h1>问得明白，答有出处。</h1>
+    <p class="subtitle">太保盛世鸿运S（恒赢版）终身寿险（分红型）</p>
+    <div class="status" id="health" role="status"><span class="dot"></span><span id="health-text">正在检查服务状态…</span></div>
+  </header>
+  <main>
+    <section class="card" aria-label="条款问答">
+      <div class="card-head"><h2>条款问答</h2><button type="button" class="quiet" id="reset">新建会话</button></div>
+      <div id="conversation" role="log" aria-live="polite">
+        <div class="intro" id="intro">
+          <strong>从你的问题开始</strong>
+          可以询问保障期限、交费、退保等条款规则，也可以接着补充信息。涉及不同保单或另一件事时，请新建会话。
+          <div class="suggestions">
+            <button type="button" class="suggestion">能分几年交？以后能改吗？</button>
+            <button type="button" class="suggestion">分红是不是保证的？</button>
+            <button type="button" class="suggestion">后悔了可以退保吗？</button>
+          </div>
+        </div>
+      </div>
+      <form id="chat-form">
+        <label for="question">你的问题</label>
+        <textarea id="question" maxlength="4000" placeholder="例如：刚买完没多久就出事了，条款怎么规定？" required></textarea>
+        <div class="form-bottom"><span class="hint">依据允许的条款资料回答，出处可展开查看。</span><button class="primary" id="send" type="submit">发送问题</button></div>
+      </form>
+    </section>
+    <aside>
+      <section class="card" aria-label="本轮原文出处">
+        <div class="card-head"><h2>本轮原文出处</h2></div>
+        <div id="sources"><p class="empty">回答生成后，这里会显示对应条款、原文片段和PDF页码。</p></div>
+      </section>
+      <details><summary>查看本轮处理记录</summary><pre id="trace">尚未发起问答。</pre></details>
+      <footer>仅展示本次实际返回的答案和证据。资料或服务尚未接入时，会如实说明。</footer>
+    </aside>
+  </main>
+  <script>
+    "use strict";
+    const byId = (id) => document.getElementById(id);
+    const conversation = byId("conversation");
+    const initialIntro = byId("intro").cloneNode(true);
+    let requestNumber = 0;
+    let controller = null;
+    let sessionId = null;
+    let revision = null;
+
+    function textElement(tag, text, className) {
+      const el = document.createElement(tag);
+      el.textContent = text;
+      if (className) el.className = className;
+      return el;
+    }
+    function addTurn(role, text, kind = "") {
+      const turn = document.createElement("div");
+      turn.className = "turn " + (role === "你" ? "user" : "assistant") + " " + kind;
+      turn.append(textElement("p", role, "role"));
+      const bubble = textElement("div", text, "bubble");
+      turn.append(bubble);
+      conversation.append(turn);
+      conversation.scrollTop = conversation.scrollHeight;
+      return bubble;
+    }
+    function safeLink(raw, label) {
+      if (typeof raw !== "string" || !raw) return null;
+      try {
+        const url = new URL(raw, window.location.origin);
+        if (!["http:", "https:"].includes(url.protocol)) return null;
+        const anchor = textElement("a", label);
+        anchor.href = url.href;
+        anchor.target = "_blank";
+        anchor.rel = "noopener noreferrer";
+        return anchor;
+      } catch (_) { return null; }
+    }
+    function renderSources(citations, directReply = false) {
+      const target = byId("sources");
+      target.replaceChildren();
+      if (!citations.length) {
+        target.append(textElement("p", directReply ? "这类回复无需引用条款。" : "本轮没有可交付的原文引用。", "empty"));
+        return;
+      }
+      citations.forEach((citation) => {
+        const card = document.createElement("div");
+        card.className = "source";
+        card.append(textElement("div", "[" + citation.citation_id + "] " + (citation.document_title || citation.document_id), "source-title"));
+        const pages = Array.isArray(citation.pdf_pages) ? citation.pdf_pages.join("、") : "";
+        card.append(textElement("div", [citation.section, pages ? "PDF第" + pages + "页" : ""].filter(Boolean).join(" · "), "source-meta"));
+        if (citation.quote) card.append(textElement("blockquote", citation.quote));
+        const local = safeLink(citation.local_url, "查看保存的原件");
+        const original = safeLink(citation.source_url, "官网来源");
+        if (local) card.append(local);
+        if (original) card.append(original);
+        target.append(card);
+      });
+    }
+    function renderResult(data) {
+      const blocks = Array.isArray(data.answer_blocks) ? data.answer_blocks : [];
+      const gaps = Array.isArray(data.gaps) ? data.gaps : [];
+      const questions = Array.isArray(data.clarification_questions) ? data.clarification_questions : [];
+      const failed = data.execution_status === "service_error" || data.execution_status === "validation_error";
+      const bubble = addTurn("条款助手", "", failed ? "error" : "");
+      blocks.forEach((block) => {
+        const references = Array.isArray(block.citation_ids) && block.citation_ids.length ? " [" + block.citation_ids.join("][") + "]" : "";
+        bubble.append(textElement("p", block.text + references));
+      });
+      gaps.forEach((gap) => { if (gap.message) bubble.append(textElement("p", gap.message)); });
+      questions.forEach((question) => bubble.append(textElement("p", question, "followup")));
+      if (!bubble.childElementCount) bubble.append(textElement("p", "本次未能形成可交付的回答，请检查服务状态后重试。"));
+      renderSources(Array.isArray(data.citations) ? data.citations : [],
+        data.trace?.stages?.some(stage => ["small_talk", "conversation_reply"].includes(stage)));
+      byId("trace").textContent = JSON.stringify({
+        trace_id: data.trace_id,
+        session_id: data.session_id,
+        revision: data.revision,
+        answer_status: data.answer_status,
+        execution_status: data.execution_status,
+        coverage_status: data.coverage_status,
+        validation: data.validation,
+        trace: data.trace
+      }, null, 2);
+      if (["ok", "degraded"].includes(data.execution_status) && data.session_id && Number.isInteger(data.revision)) {
+        sessionId = data.session_id;
+        revision = data.revision;
+      }
+      conversation.scrollTop = conversation.scrollHeight;
+    }
+    function bindSuggestions() {
+      document.querySelectorAll(".suggestion").forEach((button) => button.addEventListener("click", () => {
+        byId("question").value = button.textContent;
+        byId("question").focus();
+      }));
+    }
+    async function checkHealth() {
+      try {
+        const response = await fetch("/health/ready", {cache:"no-store"});
+        const data = await response.json();
+        const ready = response.ok && data.ready === true;
+        byId("health").classList.toggle("ready", ready);
+        byId("health-text").textContent = ready ? "服务已就绪 · 条款资料可查询" : "服务尚未就绪 · 知识库或模型服务待接入";
+      } catch (_) {
+        byId("health").classList.remove("ready");
+        byId("health-text").textContent = "暂时无法连接问答服务";
+      }
+    }
+    byId("chat-form").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (byId("send").disabled) return;
+      const question = byId("question").value;
+      if (!question.trim()) return;
+      byId("intro")?.remove();
+      addTurn("你", question);
+      byId("question").value = "";
+      byId("send").disabled = true;
+      byId("send").textContent = "正在处理…";
+      const current = ++requestNumber;
+      controller = new AbortController();
+      const body = {question};
+      if (sessionId) { body.session_id = sessionId; body.expected_revision = revision; }
+      try {
+        const response = await fetch("/api/chat", {
+          method:"POST", headers:{"Content-Type":"application/json"},
+          body:JSON.stringify(body), signal:controller.signal
+        });
+        const data = await response.json();
+        if (current !== requestNumber) return;
+        if (data.execution_status) {
+          renderResult(data);
+          if (["service_error", "validation_error"].includes(data.execution_status)) byId("question").value = question;
+        } else {
+          const message = data.error?.message || (response.status === 422 ? "问题格式不符合要求，请检查后重试。" : "本次请求未能完成，请稍后重试。");
+          addTurn("条款助手", message + (response.status === 409 ? " 请新建会话并重新说明完整问题。" : ""), "error");
+          byId("question").value = question;
+          byId("trace").textContent = JSON.stringify({http_status:response.status, error_code:data.error?.code}, null, 2);
+          renderSources([]);
+        }
+      } catch (error) {
+        if (current !== requestNumber || error.name === "AbortError") return;
+        addTurn("条款助手", "请求未完成，请检查连接后重试。", "error");
+        byId("question").value = question;
+        renderSources([]);
+      } finally {
+        if (current === requestNumber) {
+          byId("send").disabled = false;
+          byId("send").textContent = "发送问题";
+          controller = null;
+          checkHealth();
+        }
+      }
+    });
+    byId("reset").addEventListener("click", () => {
+      requestNumber += 1;
+      if (controller) controller.abort();
+      controller = null;
+      sessionId = null;
+      revision = null;
+      conversation.replaceChildren(initialIntro.cloneNode(true));
+      byId("sources").replaceChildren(textElement("p", "回答生成后，这里会显示对应条款、原文片段和PDF页码。", "empty"));
+      byId("trace").textContent = "尚未发起问答。";
+      byId("question").value = "";
+      byId("send").disabled = false;
+      byId("send").textContent = "发送问题";
+      bindSuggestions();
+      byId("question").focus();
+    });
+    bindSuggestions();
+    checkHealth();
+  </script>
+</body>
+</html>

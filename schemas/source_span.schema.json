@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SourceSpan v1.0",
+  "description": "原文定位契约；start/end必须另行校验边界与exact，哈希必须比对真实文件。此结构不证明任何回答受到语义支持。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "span_id",
+    "document_id",
+    "document_sha256",
+    "source_type",
+    "extraction_version",
+    "page_text_sha256",
+    "pdf_page",
+    "start_char",
+    "end_char",
+    "offset_unit",
+    "exact",
+    "prefix",
+    "suffix",
+    "source_url",
+    "local_pdf",
+    "page_text_path",
+    "representation_note"
+  ],
+  "properties": {
+    "span_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "document_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "document_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "source_type": {
+      "type": "string",
+      "enum": [
+        "terms",
+        "product_description",
+        "sum_assured_table",
+        "cash_value_table"
+      ]
+    },
+    "extraction_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "page_text_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "pdf_page": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "start_char": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "end_char": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "offset_unit": {
+      "const": "unicode_codepoint"
+    },
+    "exact": {
+      "type": "string",
+      "minLength": 1
+    },
+    "prefix": {
+      "type": "string"
+    },
+    "suffix": {
+      "type": "string"
+    },
+    "source_url": {
+      "type": "string",
+      "pattern": "^https://"
+    },
+    "local_pdf": {
+      "type": "string",
+      "minLength": 1
+    },
+    "page_text_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "representation_note": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "type": "object", "additionalProperties": false,
+  "required": ["claims", "aspects"],
+  "properties": {
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["claim_id", "reason", "supported"],
+        "properties": {
+          "claim_id": {"type": "string"},
+          "reason": {"type": "string", "minLength": 1, "maxLength": 80},
+          "supported": {"type": "boolean"}
+        }
+      }
+    },
+    "aspects": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["aspect_id", "reason", "complete"],
+        "properties": {
+          "aspect_id": {"type": "string"},
+          "reason": {"type": "string", "minLength": 1, "maxLength": 80},
+          "complete": {"type": "boolean"}
+        }
+      }
+    }
+  }
+}

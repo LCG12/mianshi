@@ -1,0 +1,50 @@
+# 地址和模型名从 .env 或启动环境读取；规划、回答和复核共享生成服务。
+services:
+  generation:
+    enabled: true
+    adapter: openai_compatible
+    base_url_env: LLM_BASE_URL
+    path_env: LLM_CHAT_PATH
+    model_env: LLM_MODEL
+    auth_token_env: LLM_API_TOKEN
+    auth_required: false
+    timeout_seconds: 60
+    max_inflight: 1
+    structured_output: true
+    max_tokens: 2048
+    context_window: 8192
+    tokenize_path: /tokenize
+    enable_thinking: false
+    schema_unique_items: false  # 当前解码器不支持；客户端仍按完整 Schema 校验。
+  intent:
+    enabled: true
+    adapter: local_intent
+    base_url_env: INTENT_BASE_URL
+    path_env: INTENT_PATH
+    model_env: INTENT_MODEL
+    auth_token_env: INTENT_API_TOKEN
+  embedding:
+    enabled: true
+    adapter: local_embedding
+    base_url_env: EMBEDDING_BASE_URL
+    path_env: EMBEDDING_PATH
+    model_env: EMBEDDING_MODEL
+    auth_token_env: EMBEDDING_API_TOKEN
+  rerank:
+    enabled: true
+    adapter: local_rerank
+    base_url_env: RERANK_BASE_URL
+    path_env: RERANK_PATH
+    model_env: RERANK_MODEL
+    auth_token_env: RERANK_API_TOKEN
+roles:
+  query_plan:
+    service: generation
+  answer:
+    service: generation
+  intent:
+    service: intent
+  embedding:
+    service: embedding
+  rerank:
+    service: rerank
